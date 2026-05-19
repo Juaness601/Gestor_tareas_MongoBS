@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>TaskFlow | Gestor de tareas inteligente</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOGIN / REGISTRO -->
+  <div id="auth-section" class="auth-wrapper">
+    <div class="auth-card glass-card">
+      <div class="logo-area">
+        <span class="logo-icon">ヾ(＠⌒ー⌒＠)ノ</span>
+        <h1>TaskFlow</h1>
+        <p>Organiza tu día con estilo</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="login" onclick="mostrarTab('login')">🔐 Iniciar sesión</button>
+        <button class="tab" data-tab="registro" onclick="mostrarTab('registro')">📝 Registrarse</button>
+      </div>
+
+      <!-- Login -->
+      <div id="tab-login" class="tab-pane">
+        <div class="input-group">
+          <span class="input-icon">📧</span>
+          <input type="email" id="login-email" placeholder="correo@ejemplo.com" />
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="login-password" placeholder="Contraseña" />
+        </div>
+        <button class="btn-primary" onclick="login()">Ingresar</button>
+        <p id="login-error" class="error-message"></p>
+      </div>
+
+      <!-- Registro -->
+      <div id="tab-registro" class="tab-pane" style="display:none">
+        <div class="input-group">
+          <span class="input-icon">👤</span>
+          <input type="text" id="reg-nombre" placeholder="Nombre completo" />
+        </div>
+        <div class="input-group">
+          <span class="input-icon">📧</span>
+          <input type="email" id="reg-email" placeholder="correo@ejemplo.com" />
+        </div>
+        <div class="input-group">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" />
+        </div>
+        <button class="btn-primary" onclick="registro()">Crear cuenta</button>
+        <p id="reg-error" class="error-message"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP PRINCIPAL -->
+  <div id="app-section" style="display:none">
+    <!-- Header mejorado -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="logo-area-small">
+          <span>ヾ(＠⌒ー⌒＠)ノ TaskFlow</span>
+        </div>
+        <div class="user-area">
+          <div class="user-avatar" id="usuario-avatar">👤</div>
+          <span id="usuario-nombre" class="user-name"></span>
+          <button class="btn-logout" onclick="cerrarSesion()">🚪 Salir</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Formulario nueva tarea (estilo elegante) -->
+      <div class="task-form-card glass-card">
+        <h3 id="form-titulo-label">➕ Nueva tarea</h3>
+        <input type="hidden" id="tarea-id" />
+        <div class="form-row">
+          <input type="text" id="tarea-titulo" placeholder="Título de la tarea *" />
+        </div>
+        <div class="form-row">
+          <input type="text" id="tarea-descripcion" placeholder="Descripción (opcional)" />
+        </div>
+        <div class="form-row-group">
+          <input type="date" id="tarea-fecha" class="date-input" />
+          <select id="tarea-estado">
+            <option value="pendiente">⏳ Pendiente</option>
+            <option value="completado">✅ Completado</option>
+          </select>
+        </div>
+        <div class="form-botones">
+          <button class="btn-primary" onclick="guardarTarea()">💾 Guardar tarea</button>
+          <button class="btn-secondary" onclick="cancelarEdicion()" id="btn-cancelar" style="display:none">↩️ Cancelar</button>
+        </div>
+        <p id="tarea-error" class="error-message"></p>
+      </div>
+
+      <!-- Filtros mejorados -->
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label>🔽 Estado</label>
+          <select id="filtro-estado" onchange="cargarTareas()">
+            <option value="">Todos</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="completado">Completado</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>📅 Fecha</label>
+          <input type="date" id="filtro-fecha" onchange="cargarTareas()" />
+        </div>
+        <button class="btn-clear" onclick="limpiarFiltros()">🧹 Limpiar filtros</button>
+      </div>
+
+      <!-- Lista de tareas con animación -->
+      <div id="lista-tareas" class="tasks-container"></div>
+    </main>
+
+    <footer class="app-footer">
+      <p>✨ Organiza tu día con <strong>TaskFlow</strong> — Hecho con 💜 para mantener el foco</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
