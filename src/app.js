@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');        // ← agregar
 const path = require('path');
 const tareasRoutes = require('./routes/tareas.routes');
 const authRoutes = require('./routes/auth.routes');
@@ -6,6 +7,7 @@ const { autenticar } = require('./middlewares/auth.middleware');
 
 const app = express();
 
+app.use(cors());                     // ← agregar
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 

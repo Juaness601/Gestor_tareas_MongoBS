@@ -1,4 +1,4 @@
-const API = 'https://gestor-tareas-mongo-bs.vercel.app';
+const API = window.location.origin;
 let token = localStorage.getItem('token') || null;
 
 // ─── INIT ───────────────────────────────────────────────
